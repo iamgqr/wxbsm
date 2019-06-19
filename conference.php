@@ -25,7 +25,11 @@
 		} else {
 			echo "Conference name not found";
 		}
-		$result = mysqli_query($link, "SELECT PaperID,Title,PaperPublishYear from papers where ConferenceID='$conferece_id'");
+		$pagesize=10;
+		$page=$_GET['page']?$_GET['page'] : 1;
+		$startpage=($page-1)*$pagesize;
+		$totalpage = ceil(mysqli_fetch_array(mysqli_query($link, "SELECT count(*)from papers where ConferenceID='$conferece_id'"))[0]/$pagesize);
+		$result = mysqli_query($link, "SELECT PaperID,Title,PaperPublishYear from papers where ConferenceID='$conferece_id'limit $startpage,$pagesize");
 		$conference_statistics = array();
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
@@ -45,15 +49,21 @@
 				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$PaperID' order by AuthorSequence ASC"));
 				foreach ($author_1 as $author) {
 					$author_id = $author[1];
-					echo "<a href=\"/author.php?author_id=$author_id\">$author[0]</a>; ";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author[0] </a>";
 					
 				}
-				echo "<td><a href=\"/conference.php?Conference_Name=$Conference_Name\">$Conference_Name; </a></td>";
+				echo "<td><a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a></td>";
 				}
 				
 				echo "</tr>";
 			}
 			echo "</table>";
+			echo "</table>";
+			echo "当前页数： $page/$totalpage  ";
+			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>首页 </a>";
+			if($page!=1)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page-1)."'>上一页 </a>";
+			if($page!=$totalpage)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page+1)."'>下一页 </a>";
+			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".$totalpage."'>尾页 </a>";
 		}
 	?>
 	

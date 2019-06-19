@@ -60,7 +60,7 @@
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href=\"/conference.php?Conference_Name=$Conference_Name\">$Conference_Name; </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
 				echo "<td>";
 
 				echo "</tr>";
@@ -105,9 +105,9 @@
 			foreach ($result['response']['docs'] as $paper) {
 				echo "<tr>";
 				echo "<td>";
-				$paper_title=$paper['Title'];
-				echo "<a href=’paper.php?paper_title=$paper_title\">$paper_title; </a>";
-
+				$paper_title_1=$paper['Title'];
+				$PaperID=$paper['PaperID'];
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
 				echo "</td>";
 				echo "<td>";
 				foreach ($paper['AuthorsName'] as $idx => $author) {
@@ -117,7 +117,7 @@
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href=\"/conference.php?Conference_Name=$Conference_Name\">$Conference_Name; </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
 				echo "<td>";
 
 				echo "</tr>";
@@ -162,20 +162,21 @@
 			foreach ($result['response']['docs'] as $paper) {
 				echo "<tr>";
 				echo "<td>";
-				$paper_title=$paper['Title'];
-				echo "<a href=\"/paper.php?paper_title=$paper_title\">$paper_title; </a>";
+				$paper_title_1=$paper['Title'];
+				$PaperID=$paper['PaperID'];
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
 
 				echo "</td>";
 				echo "<td>";
 				foreach ($paper['AuthorsName'] as $idx => $author) {
 					$author_id = $paper['AuthorsID'][$idx];
-					echo "<a href=\"/author.php?author_id=$author_id\">$author; </a>";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author </a>";
 					
 				}
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href=\"/conference.php?Conference_Name=$Conference_Name\">$Conference_Name; </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
 				echo "<td>";
 
 				echo "</tr>";
