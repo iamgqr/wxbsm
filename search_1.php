@@ -47,7 +47,8 @@
 				echo "<tr>";
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
-				echo "<a href=\"/paper.php?paper_title=$paper_title_1\">$paper_title_1; </a>";
+				$PaperID=$paper['PaperID'];
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
 
 				echo "</td>";
 				echo "<td>";
