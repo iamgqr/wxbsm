@@ -25,8 +25,20 @@
 		} else {
 			echo "Conference name not found";
 		}
-		$result = mysqli_query($link, "SELECT PaperID,Title,PaperPublishYear from papers where ConferenceID='$conferece_id'");
+	
+		
 		$conference_statistics = array();
+		$result = mysqli_fetch_all(mysqli_query($link, "SELECT PaperPublishYear from Papers where ConferenceID='$conferece_id'"));
+		foreach ($result as $paper_info) {
+			$publish_year = $paper_info[0];
+			if(array_key_exists($publish_year, $conference_statistics))
+				$conference_statistics[$publish_year]++;
+			else
+				$conference_statistics[$publish_year]=1;
+		}
+
+		$result = mysqli_query($link, "SELECT PaperID,Title from papers where ConferenceID='$conferece_id'");
+		
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
 			while ($row = mysqli_fetch_array($result)) {
@@ -34,11 +46,6 @@
 				if($row){
 				$paper_title = $row['Title'];
 				$paper_id = $row['PaperID'];
-				$publish_year = $row['PaperPublishYear'];
-				if(array_key_exists($publish_year, $conference_statistics))
-					$conference_statistics[$publish_year]++;
-				else
-					$conference_statistics[$publish_year]=1;
 				
 				echo "<td><a href=\"/paper.php?paper_title=$paper_title\">$paper_title; </a></td>";
 				echo "<td>";

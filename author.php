@@ -26,34 +26,36 @@
 			echo "Name not found";
 			return;
 		}
-		$result = mysqli_query($link, "SELECT affiliations.AffiliationID, affiliations.AffiliationName from (select AffiliationID, count(*) as cnt from paper_author_affiliation where AuthorID='$author_id' and AffiliationID is not null group by AffiliationID order by cnt desc) as tmp inner join affiliations on tmp.AffiliationID = affiliations.AffiliationID");
-	
-		$affiliation_name = mysqli_fetch_array($result)['AffiliationName'];
-		//echo "Affiliation:$affiliation_name";
+
+		$author_statistics = array();
+		$result = mysqli_fetch_all(mysqli_query($link, "SELECT b.PaperPublishYear from paper_author_affiliation a inner join Papers b on a.PaperID=b.PaperID where a.AuthorID='$author_id'"));
+		foreach ($result as $paper_info) {
+			$publish_year = $paper_info[0];
+			if(array_key_exists($publish_year, $author_statistics))
+				$author_statistics[$publish_year]++;
+			else
+				$author_statistics[$publish_year]=1;
+		}
+		
 		$pagesize=10;
 		$page=$_GET['page']?$_GET['page'] : 1;
 		$startpage=($page-1)*$pagesize;
 		$totalpage = ceil(mysqli_fetch_array(mysqli_query($link, "SELECT COUNT(*) from paper_author_affiliation where AuthorID='$author_id'"))[0]/$pagesize);
 		$result = mysqli_query($link, "SELECT PaperID from paper_author_affiliation where AuthorID='$author_id'limit $startpage,$pagesize");
-		$author_statistics = array();
+		
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
 			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
 				$paper_id = $row['PaperID'];
 				if($row){
-				$paper_info = mysqli_fetch_array(mysqli_query($link, "SELECT Title, ConferenceID, PaperPublishYear from Papers where PaperID='$paper_id'"));
+				$paper_info = mysqli_fetch_array(mysqli_query($link, "SELECT Title, ConferenceID from Papers where PaperID='$paper_id'"));
 				$paper_title = $paper_info['Title'];
 				$conf_id = $paper_info['ConferenceID'];
-				$publish_year = $paper_info['PaperPublishYear'];
-				if(array_key_exists($publish_year, $author_statistics))
-					$author_statistics[$publish_year]++;
-				else
-					$author_statistics[$publish_year]=1;
 				
 				echo "<td><a href=\"/paper.php?paper_title=$paper_title\">$paper_title; </a></td>";
 				echo "<td>";
-				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$paper_id' order by AuthorSequence ASC"));
+				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$paper_id' order by AuthorSequence ASC"));
 				foreach ($author_1 as $author) {
 					$author_id = $author[1];
 					echo "<a href=\"/author.php?author_id=$author_id\">$author[0]</a>; ";
