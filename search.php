@@ -14,8 +14,6 @@
 	<h1>Search Page Result</h1>
 	<?php
 		$paper_title = $_GET["paper_title"];
-		$Author_Name = $_GET["Author_Name"];
-		$Conference_Name = $_GET["Conference_Name"];
 		if ($paper_title) {
 			echo "Search for Title: ".$paper_title;
 			$ch = curl_init();
@@ -51,6 +49,7 @@
 			echo "</table><br><br>";
 			
 		}
+		$Author_Name = $_GET["Author_Name"];
 		if ($Author_Name) {
 			echo "Search for Author Name: ".$Author_Name;
 			$ch = curl_init();
@@ -86,6 +85,7 @@
 			echo "</table><br><br>";
 			
 		}
+		$Conference_Name = $_GET["Conference_Name"];
 		if ($Conference_Name) {
 			echo "Search for Conference Name: ".$Conference_Name;
 			$ch = curl_init();

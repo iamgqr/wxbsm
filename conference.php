@@ -20,6 +20,7 @@
 		$result = mysqli_query($link, "SELECT ConferenceID from conferences where ConferenceName='$Conference_Name '");
 		if ($result) {
 			$conferece_id = mysqli_fetch_array($result)['ConferenceID'];
+			echo "ConferenceName: $Conference_Name<br>";
 			echo "ConferenceID: $conferece_id<br>";
 		} else {
 			echo "Conference name not found";

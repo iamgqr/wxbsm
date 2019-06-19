@@ -21,6 +21,7 @@
 		if ($result) {
 			$author_name = mysqli_fetch_array($result)['AuthorName'];
 			echo "Name: $author_name<br>";
+			echo "Author_id: $author_id<br>";
 		} else {
 			echo "Name not found";
 			return;
@@ -28,8 +29,12 @@
 		$result = mysqli_query($link, "SELECT affiliations.AffiliationID, affiliations.AffiliationName from (select AffiliationID, count(*) as cnt from paper_author_affiliation where AuthorID='$author_id' and AffiliationID is not null group by AffiliationID order by cnt desc) as tmp inner join affiliations on tmp.AffiliationID = affiliations.AffiliationID");
 	
 		$affiliation_name = mysqli_fetch_array($result)['AffiliationName'];
-		echo "Affiliation:$affiliation_name";
-		$result = mysqli_query($link, "SELECT PaperID from paper_author_affiliation where AuthorID='$author_id'");
+		//echo "Affiliation:$affiliation_name";
+		$pagesize=10;
+		$page=$_GET['page']?$_GET['page'] : 1;
+		$startpage=($page-1)*$pagesize;
+		$totalpage = ceil(mysqli_fetch_array(mysqli_query($link, "SELECT COUNT(*) from paper_author_affiliation where AuthorID='$author_id'"))[0]/$pagesize);
+		$result = mysqli_query($link, "SELECT PaperID from paper_author_affiliation where AuthorID='$author_id'limit $startpage,$pagesize");
 		$author_statistics = array();
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
@@ -62,6 +67,11 @@
 				echo "</tr>";
 			}
 			echo "</table>";
+			echo "当前页数： $page/$totalpage  ";
+			echo "<a href='author.php?author_id=$author_id&page=".(1)."'>首页 </a>";
+			if($page!=1)echo "<a href='author.php?author_id=$author_id&page=".($page-1)."'>上一页 </a>";
+			if($page!=$totalpage)echo "<a href='author.php?author_id=$author_id&page=".($page+1)."'>下一页 </a>";
+			echo "<a href='author.php?author_id=$author_id&page=".$totalpage."'>尾页 </a>";
 		}
 	?>
 	

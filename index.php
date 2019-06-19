@@ -19,6 +19,7 @@
 		<input type="text" name="Author_Name">
 		<p style="font-family:arial;color:cyan;font-size:15px;">Conference Name:</p>
 		<input type="text" name="Conference_Name">
+		<input type="hidden" name="page" value="1">
 
 		<br>
 		<br>
