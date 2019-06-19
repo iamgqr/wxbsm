@@ -13,28 +13,27 @@
 <body>
 	<h1>Paper Page</h1>
 	<?php
-		$paper_title = $_GET["paper_title"];
+		$PaperID = $_GET["PaperID"];
 		$link = mysqli_connect("localhost:3306", 'root', '', 'test');
-		$result = mysqli_query($link, "SELECT PaperID from papers where Title='$paper_title'");
+		$result = mysqli_query($link, "SELECT Title from papers where PaperID='$PaperID'");
 		if ($result) {
-			$paper_id = mysqli_fetch_array($result)['PaperID'];
-			echo "PaperID: $paper_id<br>";
+			echo "PaperID: $PaperID<br>";
 		} else {
 			echo "Paper not found";
 		}
-		$result = mysqli_query($link, "SELECT PaperID from papers where Title='$paper_title'");
+		$result = mysqli_query($link, "SELECT Title from papers where PaperID='$PaperID'");
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
 			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
 				if($row){
-				$paper_info = mysqli_fetch_array(mysqli_query($link, "SELECT Title, ConferenceID from Papers where PaperID='$paper_id'"));
+				$paper_info = mysqli_fetch_array(mysqli_query($link, "SELECT Title, ConferenceID from Papers where PaperID='$PaperID'"));
 				$paper_title = $paper_info['Title'];
 				$conf_id = $paper_info['ConferenceID'];
 				
-				echo "<td><a href=\"/paper.php?paper_title=$paper_title\">$paper_title; </a></td>";
+				echo "<td><a href=\"/paper.php?PaperID=$PaperID\">$paper_title; </a></td>";
 				echo "<td>";
-				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$paper_id' order by AuthorSequence ASC"));
+				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$PaperID' order by AuthorSequence ASC"));
 				foreach ($author_1 as $author) {
 					$author_id = $author[1];
 					echo "<a href=\"/author.php?author_id=$author_id\">$author[0]</a>; ";

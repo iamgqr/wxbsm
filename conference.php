@@ -33,16 +33,16 @@
 				echo "<tr>";
 				if($row){
 				$paper_title = $row['Title'];
-				$paper_id = $row['PaperID'];
+				$PaperID = $row['PaperID'];
 				$publish_year = $row['PaperPublishYear'];
 				if(array_key_exists($publish_year, $conference_statistics))
 					$conference_statistics[$publish_year]++;
 				else
 					$conference_statistics[$publish_year]=1;
 				
-				echo "<td><a href=\"/paper.php?paper_title=$paper_title\">$paper_title; </a></td>";
+				echo "<td><a href=\"/paper.php?PaperID=$PaperID\">$paper_title; </a></td>";
 				echo "<td>";
-				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$paper_id' order by AuthorSequence ASC"));
+				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$PaperID' order by AuthorSequence ASC"));
 				foreach ($author_1 as $author) {
 					$author_id = $author[1];
 					echo "<a href=\"/author.php?author_id=$author_id\">$author[0]</a>; ";
