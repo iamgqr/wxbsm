@@ -1,15 +1,21 @@
 <!DOCTYPE html> 
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>search page</title>
-<style type="text/css">
+    <meta charset="utf-8"> 
+    <title>Search Page</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
 	body {
 		text-align: center;
 	}
+	.table{
+		text-align: left;
+	}
 </style>
 </head>
-
 <body>
 	<h1>Search Page Result</h1>
 	<?php
@@ -42,9 +48,12 @@
 			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 			$result = json_decode(curl_exec($ch), true);
 			curl_close($ch);
-			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";			
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			foreach ($result['response']['docs'] as $paper) {
-				echo "<tr>";
+				echo "<tbody><tr>";
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
@@ -63,14 +72,16 @@
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "</td>";
 
-				echo "</tr>";
+				echo "</tbody></tr>";
 			}
 			echo "</table><br><br>";
-			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".(1)."'>首页</a> ";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page-1)."'>上一页</a> ";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page+1)."'>下一页</a> ";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".$totalpage."'>尾页</a>";
+			
+			echo "<a  class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".(1)."'>Front Page</a> ";
+			if($page!=1)echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page-1)."'>Previous Page</a> ";
+			echo "<a  class='btn btn-default btn-sm disabled' style='opacity:0.8;' role='button'>Current Page： $page/$totalpage</a>";
+			if($page!=$totalpage)echo "<a  class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page+1)."'>Next Page</a> ";
+			echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".$totalpage."'>Last Page</a><br><br><br>";
+			
 		}
 		$Author_Name = $_GET["Author_Name"];
 		if ($Author_Name) {
@@ -100,10 +111,13 @@
 			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 			$result = json_decode(curl_exec($ch), true);
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			curl_close($ch);
-			echo "<table border=\"1\"><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";			
 			foreach ($result['response']['docs'] as $paper) {
-				echo "<tr>";
+				echo "<tbody><tr>";
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
@@ -120,14 +134,14 @@
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "</td>";
 
-				echo "</tr>";
+				echo "</tbody></tr>";
 			}
 			echo "</table><br><br>";
-			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".(1)."'>首页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page-1)."'>上一页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page+1)."'>下一页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".$totalpage."'>尾页</a>";
+			echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".(1)."'>Front Page</a> ";
+			if($page!=1)echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page-1)."'>Previous Page</a> ";
+			echo "<a  class='btn btn-default btn-sm disabled' style='opacity:0.8;' role='button'>Current Page： $page/$totalpage</a>";
+			if($page!=$totalpage)echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page+1)."'>Next Page</a> ";
+			echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".$totalpage."'>Last Page</a><br><br><br>";
 		}
 		$Conference_Name = $_GET["Conference_Name"];
 		if ($Conference_Name) {
@@ -157,10 +171,13 @@
 			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 			$result = json_decode(curl_exec($ch), true);
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			curl_close($ch);
-			echo "<table border=\"1\"><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";			
 			foreach ($result['response']['docs'] as $paper) {
-				echo "<tr>";
+				echo "<tbody><tr>";
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
@@ -179,15 +196,16 @@
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "</td>";
 
-				echo "</tr>";
+				echo "</tbody></tr>";
 			}
-			echo "</table>";
-			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".(1)."'>首页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page-1)."'>上一页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page+1)."'>下一页</a> ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".$totalpage."'>尾页</a>";
+			echo "</table><br><br>";
+			echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".(1)."'>Front Page</a> ";
+			if($page!=1)echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page-1)."'>Previous Page</a> ";
+			echo "<a  class='btn btn-default btn-sm disabled' style='opacity:0.8;' role='button'>Current Page： $page/$totalpage</a>";
+			if($page!=$totalpage)echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page+1)."'>Next Page</a> ";
+			echo "<a class='btn btn-default btn-sm' role='button' href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".$totalpage."'>Last Page</a>";
 		}
+		echo "<br><br><a style='border-radius:25px;'  class='btn btn-default btn-lg' role='button' href='index.php'>Homepage</a> ";
 	?>
 </body>
 

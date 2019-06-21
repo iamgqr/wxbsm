@@ -1,30 +1,37 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
-<title>author page</title>
-<style type="text/css">
+<meta charset="utf-8"> 
+    <title>Conference Page</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
 	body {
 		text-align: center;
 	}
-</style>
+	.table{
+		text-align: left;
+	}
+	</style>
     <script src="echarts.min.js"></script>
 </head>
 
 <body>
 	<h1>Conference Page</h1>
-	<div id="paperchart" style="width: 600px;height:400px;margin:0 auto;"></div>
 	<?php
 		$Conference_Name = $_GET["Conference_Name"];
 		$link = mysqli_connect("localhost:3306", 'root', '', 'test');
 		$result = mysqli_query($link, "SELECT ConferenceID from conferences where ConferenceName='$Conference_Name '");
 		if ($result) {
 			$conferece_id = mysqli_fetch_array($result)['ConferenceID'];
-			echo "ConferenceName: $Conference_Name<br>";
-			echo "ConferenceID: $conferece_id<br>";
+			echo"<p style='margin:4px auto;border:1px solid;border-radius:15px;Width:200px'>ConferenceName: $Conference_Name ConferenceID: $conferece_id</p>";
 		} else {
 			echo "Conference name not found";
 		}
+		?>
+		<div id="paperchart" style="width: 800px;height:400px;margin:0 auto;"></div>
+		<?php
 		$pagesize=10;
 		$page=$_GET['page']?$_GET['page'] : 1;
 		$startpage=($page-1)*$pagesize;
@@ -43,7 +50,10 @@
 		$result = mysqli_query($link, "SELECT PaperID,Title from papers where ConferenceID='$conferece_id'limit $startpage,$pagesize");
 		
 		if ($result) {
-			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
 				if($row){
@@ -64,12 +74,12 @@
 				echo "</tr>";
 			}
 			echo "</table>";
-			echo "</table>";
-			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>首页</a> ";
-			if($page!=1)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page-1)."'>上一页</a> ";
-			if($page!=$totalpage)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page+1)."'>下一页</a> ";
-			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".$totalpage."'>尾页</a>";
+			echo "<a class='btn btn-default btn-sm' role='button' href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>Front Page</a> ";
+			if($page!=1)echo "<a class='btn btn-default btn-sm' role='button' href='conference.php?Conference_Name=$Conference_Name&page=".($page-1)."'>Previous Page</a> ";
+			echo "<a  class='btn btn-default btn-sm disabled' style='opacity:0.8;' role='button'>Current Page： $page/$totalpage</a>";
+			if($page!=$totalpage)echo "<a class='btn btn-default btn-sm' role='button' href='conference.php?Conference_Name=$Conference_Name&page=".($page+1)."'>Next Page</a> ";
+			echo "<a class='btn btn-default btn-sm' role='button' href='conference.php?Conference_Name=$Conference_Name&page=".$totalpage."'>Last Page</a>";
+			echo "<br><br><a style='border-radius:25px;'  class='btn btn-default btn-lg' role='button' href='index.php'>Homepage</a> ";
 		}
 	?>
 	

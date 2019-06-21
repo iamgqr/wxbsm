@@ -1,13 +1,19 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
-	<title>author page</title>
+<meta charset="utf-8"> 
+    <title>Paper Page</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
-		body {
-			text-align: center;
-		}
-	</style>
+	body {
+		text-align: center;
+	}
+	.table{
+		text-align: left;
+	}
+</style>
     <script src="echarts.min.js"></script>
 </head>
 
@@ -23,8 +29,7 @@
 		$result = mysqli_query($link, "SELECT AuthorName from authors where AuthorID='$author_id'");
 		if ($result) {
 			$author_name = mysqli_fetch_array($result)['AuthorName'];
-			echo "Name: $author_name<br>";
-			echo "Author_id: $author_id<br>";
+			echo"<p style='margin:4px auto;border:1px solid;border-radius:15px;Width:200px'>Name: $author_name Author_id: $author_id</p>";
 		} else {
 			echo "Name not found";
 			return;
@@ -59,7 +64,10 @@
 		$result = mysqli_query($link, "SELECT PaperID from paper_author_affiliation where AuthorID='$author_id'limit $startpage,$pagesize");
 		
 		if ($result) {
-			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
 				$paper_id = $row['PaperID'];
@@ -86,11 +94,12 @@
 				echo "</tr>";
 			}
 			echo "</table>";
-			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='author.php?author_id=$author_id&page=".(1)."'>首页</a> ";
-			if($page!=1)echo "<a href='author.php?author_id=$author_id&page=".($page-1)."'>上一页</a> ";
-			if($page!=$totalpage)echo "<a href='author.php?author_id=$author_id&page=".($page+1)."'>下一页</a> ";
-			echo "<a href='author.php?author_id=$author_id&page=".$totalpage."'>尾页</a>";
+			echo "<a class='btn btn-default btn-sm' role='button' href='author.php?author_id=$author_id&page=".(1)."'>Front Page</a> ";
+			if($page!=1)echo "<a class='btn btn-default btn-sm' role='button' href='author.php?author_id=$author_id&page=".($page-1)."'>Previous Page</a> ";
+			echo "<a  class='btn btn-default btn-sm disabled' style='opacity:0.8;' role='button'>Current Page： $page/$totalpage</a>";
+			if($page!=$totalpage)echo "<a class='btn btn-default btn-sm' role='button' href='author.php?author_id=$author_id&page=".($page+1)."'>Next Page</a> ";
+			echo "<a class='btn btn-default btn-sm' role='button' href='author.php?author_id=$author_id&page=".$totalpage."'>Last Page</a>";
+			echo "<br><br><a style='border-radius:25px;'  class='btn btn-default btn-lg' role='button' href='index.php'>Homepage</a> ";
 		}
 	?>
 	

@@ -1,11 +1,17 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
-<title>author page</title>
-<style type="text/css">
+<meta charset="utf-8"> 
+    <title>Paper Page</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
 	body {
 		text-align: center;
+	}
+	.table{
+		text-align: left;
 	}
 </style>
 </head>
@@ -23,7 +29,10 @@
 		}
 		$result = mysqli_query($link, "SELECT Title from papers where PaperID='$PaperID'");
 		if ($result) {
-			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
+			?>
+			<table class="table table-hover table-bordered";>
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php		
 			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
 				if($row){
@@ -47,6 +56,7 @@
 				echo "</tr>";
 			}
 			echo "</table>";
+			echo "<br><br><a style='border-radius:25px;'  class='btn btn-default btn-lg' role='button' href='index.php'>Homepage</a> ";
 		}
 	?>
 

@@ -1,13 +1,12 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
-<title>search page example</title>
-<style type="text/css">
-	body {
-		text-align: center;
-	}
-</style>
+<meta charset="utf-8"> 
+	<title>homepage</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -26,9 +25,12 @@
 			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 			$result = json_decode(curl_exec($ch), true);
 			curl_close($ch);
-			echo "<table border=\"1\"><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";			
+			?>
+			<table class="table table-bordered">
+			<thead><tr><th>Title</th><th>Authors</th><th>Conference</th></tr></thead>
+			<?php	
 			foreach ($result['response']['docs'] as $paper) {
-				echo "<tr>";
+				echo "<tbody><tr>";
 				echo "<td>";
 				echo $paper['Title'];
 
@@ -44,7 +46,7 @@
 				echo $paper['ConferenceName'];
 				echo "<td>";
 
-				echo "</tr>";
+				echo "</tr></tbody>";
 			}
 			echo "</table><br><br>";
 			
