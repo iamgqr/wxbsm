@@ -61,7 +61,7 @@
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
-				echo "<td>";
+				echo "</td>";
 
 				echo "</tr>";
 			}
@@ -118,7 +118,7 @@
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
-				echo "<td>";
+				echo "</td>";
 
 				echo "</tr>";
 			}
@@ -177,11 +177,11 @@
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
 				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
-				echo "<td>";
+				echo "</td>";
 
 				echo "</tr>";
 			}
-			echo "</table><br><br>";
+			echo "</table>";
 			echo "当前页数： $page/$totalpage  ";
 			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".(1)."'>首页 </a>";
 			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page-1)."'>上一页 </a>";
