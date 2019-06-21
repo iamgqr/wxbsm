@@ -50,15 +50,15 @@
 				$paper_title = $row['Title'];
 				$PaperID = $row['PaperID'];
 				
-				echo "<td><a href=\"/paper.php?PaperID=$PaperID\">$paper_title; </a></td>";
+				echo "<td><a href=\"/paper.php?PaperID=$PaperID\">$paper_title</a></td>";
 				echo "<td>";
 				$author_1 = mysqli_fetch_all(mysqli_query($link, "SELECT AuthorName,authors.AuthorID from paper_author_affiliation  INNER JOIN authors  on authors.AuthorID=paper_author_affiliation.AuthorID where PaperID='$PaperID' order by AuthorSequence ASC"));
 				foreach ($author_1 as $author) {
 					$author_id = $author[1];
-					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author[0] </a>";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author[0]</a>; ";
 					
 				}
-				echo "<td><a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a></td>";
+				echo "<td><a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a></td>";
 				}
 				
 				echo "</tr>";
@@ -66,10 +66,10 @@
 			echo "</table>";
 			echo "</table>";
 			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>首页 </a>";
-			if($page!=1)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page-1)."'>上一页 </a>";
-			if($page!=$totalpage)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page+1)."'>下一页 </a>";
-			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".$totalpage."'>尾页 </a>";
+			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>首页</a> ";
+			if($page!=1)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page-1)."'>上一页</a> ";
+			if($page!=$totalpage)echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".($page+1)."'>下一页</a> ";
+			echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".$totalpage."'>尾页</a>";
 		}
 	?>
 	

@@ -48,29 +48,29 @@
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
-				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1</a>";
 
 				echo "</td>";
 				echo "<td>";
 				foreach ($paper['AuthorsName'] as $idx => $author) {
 					$author_id = $paper['AuthorsID'][$idx];
-					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author </a>";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author</a>; ";
 					
 				}
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "<td>";
 
 				echo "</tr>";
 			}
 			echo "</table><br><br>";
 			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".(1)."'>首页 </a>";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page-1)."'>上一页 </a>";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page+1)."'>下一页 </a>";
-			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".$totalpage."'>尾页 </a>";
+			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".(1)."'>首页</a> ";
+			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page-1)."'>上一页</a> ";
+			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".($page+1)."'>下一页</a> ";
+			echo "<a href='search_1.php?paper_title=$paper_title&Author_Name=&Conference_Name=&page=".$totalpage."'>尾页</a>";
 		}
 		$Author_Name = $_GET["Author_Name"];
 		if ($Author_Name) {
@@ -107,27 +107,27 @@
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
-				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1</a>";
 				echo "</td>";
 				echo "<td>";
 				foreach ($paper['AuthorsName'] as $idx => $author) {
 					$author_id = $paper['AuthorsID'][$idx];
-					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author </a>";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author</a>; ";
 				}
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "<td>";
 
 				echo "</tr>";
 			}
 			echo "</table><br><br>";
 			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".(1)."'>首页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page-1)."'>上一页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page+1)."'>下一页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".$totalpage."'>尾页 </a>";
+			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".(1)."'>首页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page-1)."'>上一页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".($page+1)."'>下一页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=$Author_Name&Conference_Name=&page=".$totalpage."'>尾页</a>";
 		}
 		$Conference_Name = $_GET["Conference_Name"];
 		if ($Conference_Name) {
@@ -164,29 +164,29 @@
 				echo "<td>";
 				$paper_title_1=$paper['Title'];
 				$PaperID=$paper['PaperID'];
-				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1; </a>";
+				echo "<a href=\"/paper.php?PaperID=$PaperID\">$paper_title_1</a>";
 
 				echo "</td>";
 				echo "<td>";
 				foreach ($paper['AuthorsName'] as $idx => $author) {
 					$author_id = $paper['AuthorsID'][$idx];
-					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author </a>";
+					echo "<a href='author.php?author_id=$author_id&page=".(1)."'>$author</a>; ";
 					
 				}
 				echo "</td>";
 				echo "<td>";
 				$Conference_Name=$paper['ConferenceName'];
-				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name </a>";
+				echo "<a href='conference.php?Conference_Name=$Conference_Name&page=".(1)."'>$Conference_Name</a>";
 				echo "<td>";
 
 				echo "</tr>";
 			}
 			echo "</table><br><br>";
 			echo "当前页数： $page/$totalpage  ";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".(1)."'>首页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page-1)."'>上一页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page+1)."'>下一页 </a>";
-			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".$totalpage."'>尾页 </a>";
+			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".(1)."'>首页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page-1)."'>上一页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".($page+1)."'>下一页</a> ";
+			echo "<a href='search_1.php?paper_title=&Author_Name=&Conference_Name=$Conference_Name&page=".$totalpage."'>尾页</a>";
 		}
 	?>
 </body>
