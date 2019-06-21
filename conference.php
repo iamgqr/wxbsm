@@ -29,7 +29,7 @@
 		$page=$_GET['page']?$_GET['page'] : 1;
 		$startpage=($page-1)*$pagesize;
 		$totalpage = ceil(mysqli_fetch_array(mysqli_query($link, "SELECT count(*)from papers where ConferenceID='$conferece_id'"))[0]/$pagesize);
-		$result = mysqli_query($link, "SELECT PaperID,Title,PaperPublishYear from papers where ConferenceID='$conferece_id'limit $startpage,$pagesize");
+		$result = mysqli_query($link, "SELECT PaperID,Title,PaperPublishYear from papers where ConferenceID='$conferece_id'");
 		$conference_statistics = array();
 		$result = mysqli_fetch_all(mysqli_query($link, "SELECT PaperPublishYear from Papers where ConferenceID='$conferece_id'"));
 		foreach ($result as $paper_info) {
@@ -40,7 +40,7 @@
 				$conference_statistics[$publish_year]=1;
 		}
 
-		$result = mysqli_query($link, "SELECT PaperID,Title from papers where ConferenceID='$conferece_id'");
+		$result = mysqli_query($link, "SELECT PaperID,Title from papers where ConferenceID='$conferece_id'limit $startpage,$pagesize");
 		
 		if ($result) {
 			echo "<table border=\"1\";text-align:center'><tr><th>Title</th><th>Authors</th><th>Conference</th></tr>";
