@@ -227,7 +227,7 @@
 		var conference_chart = echarts.init(document.getElementById('conference_chart'));
 		option = {
 			title : {
-				text: 'Author Affiliations Statistics',
+				text: 'Author Conferences Statistics',
 				x:'center'
 			},
 			tooltip : {
