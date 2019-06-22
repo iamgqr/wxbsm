@@ -28,7 +28,7 @@
 		$result = mysqli_query($link, "SELECT AuthorName from authors where AuthorID='$author_id'");
 		if ($result) {
 			$author_name = mysqli_fetch_array($result)['AuthorName'];
-			echo"<p style='margin:4px auto;border:1px solid;border-radius:15px;Width:200px'>Name: $author_name Author_id: $author_id</p>";
+			echo"<p style='margin:4px auto;border:1px solid;border-radius:15px;Width:150px'>Name: $author_name Author_id: $author_id</p>";
 		} else {
 			echo "Name not found";
 			return;
