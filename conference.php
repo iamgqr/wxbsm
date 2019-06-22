@@ -30,7 +30,7 @@
 			echo "Conference name not found";
 		}
 		?>
-		<div id="paperchart" style="width: 800px;height:400px;margin:0 auto;"></div>
+		<div id="paperchart" style="width: 800px;height:500px;margin:0 auto;"></div>
 		<?php
 		$pagesize=10;
 		$page=$_GET['page']?$_GET['page'] : 1;

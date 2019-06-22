@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=1, user-scalable=no" />
     <title>Paper Page</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -19,9 +20,7 @@
 
 <body>
 	<h1>Author Page</h1>
-	<div id="year_chart" style="width: 600px;height:400px;"></div>
-	<div id="affiliation_chart" style="width: 600px;height:400px;"></div>
-	<div id="conference_chart" style="width: 600px;height:400px;"></div>
+	
 	<?php
 	
 		$author_id = $_GET["author_id"];
@@ -34,7 +33,11 @@
 			echo "Name not found";
 			return;
 		}
-
+		?>
+        <div id="year_chart" class="col-3" style="margin:0 auto;width: 800px;height:500px;"></div>
+	    <div id="affiliation_chart" style="display:inline-block;width: 600px;height:400px;"></div>
+	    <div id="conference_chart" style="display:inline-block;width: 600px;height:400px;"></div>
+		<?php	
 		$author_statistics = array();
 		$affiliation_statistics = array();
 		$conference_statistics = array();
